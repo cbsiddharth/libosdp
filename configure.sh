@@ -23,6 +23,7 @@ usage() {
 	  --static-pd                  Setup PD single statically
 	  --lib-only                   Only build the library
 	  --file                       Compile support for file tx command
+	  --enable-trs                 Enable support for Transparant Reader Support
 	  --osdpctl                    Build osdpctl tool
 	  -f, --force                  Use this flags to override some checks
 	  -h, --help                   Print this help
@@ -41,6 +42,7 @@ while [ $# -gt 0 ]; do
 	--static-pd)           STATIC_PD=1;;
 	--lib-only)            LIB_ONLY=1;;
 	--file)                FILE=1;;
+	--enable-trs)          ENABLE_TRS=1;;
 	--osdpctl)             OSDPCTL=1;;
 	-f|--force)            FORCE=1;;
 	-h|--help)             usage; exit 0;;
@@ -88,6 +90,10 @@ fi
 
 if [[ ! -z "${FILE}" ]]; then
 	CCFLAGS+=" -DCONFIG_OSDP_FILE"
+fi
+
+if [[ ! -z "${ENABLE_TRS}" ]]; then
+	CCFLAGS+=" -DCONFIG_OSDP_TRS"
 fi
 
 ## Repo meta data
@@ -138,6 +144,10 @@ fi
 
 if [[ ! -z "${FILE}" ]]; then
 	LIBOSDP_SOURCES+=" src/osdp_file.c"
+fi
+
+if [[ ! -z "${ENABLE_TRS}" ]]; then
+	LIBOSDP_SOURCES+=" src/osdp_trs.c"
 fi
 
 if [[ ! -z "${OSDPCTL}" ]]; then

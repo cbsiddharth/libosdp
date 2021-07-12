@@ -8,6 +8,7 @@
 
 #include "osdp_common.h"
 #include "osdp_file.h"
+#include "osdp_trs.h"
 
 #define LOG_TAG "CP : "
 
